@@ -1,1 +1,1 @@
-web: gunicorn sampledeploy.wsgi —-log-file -
+﻿web: gunicorn geodata.wsgi —-log-file -
