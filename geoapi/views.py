@@ -1,10 +1,9 @@
 from django.views import View
 from django.shortcuts import render
 import requests
-from geoapi import config
 
-access_key = config.api_key
-weather_key = config.weather_api_key
+access_key = 'mykey'
+weather_key = 'wkey'
 
 
 class GeoLocation(View):
