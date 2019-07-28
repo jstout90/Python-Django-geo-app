@@ -2,9 +2,6 @@ from django.views import View
 from django.shortcuts import render
 import requests
 
-access_key = 'mykey'
-weather_key = 'wkey'
-
 
 class GeoLocation(View):
 
