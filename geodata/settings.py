@@ -16,7 +16,7 @@ SECRET_KEY = config.secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [‘0.0.0.0’, ‘localhost’, 'https://shrouded-bastion-95553.herokuapp.com/']
+ALLOWED_HOSTS = [‘localhost’, 'https://shrouded-bastion-95553.herokuapp.com/']
 
 
 # Application definition
@@ -111,6 +111,7 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, ‘staticfiles’)
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = MEDIA_DIR
 django_heroku.settings(locals())
