@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 200px;
+        width: 60%;
+      }
+    </style>
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+    <title>GEO Data</title>
+  </head>
+  <body>
+      <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="container">
+                <div class="jumbotron mt-3">
+                    <h1>Geographical View of Your Area</h1>
+                    <p class="lead">Your ip address is <strong>{{ geodata.ip }}</strong>, and you are probably in <strong>{{ geodata.city }} {{ geodata.region_name }}, {{ geodata.zip }}</strong> right now.</p>
+                    <p class="subtitle">Current Temperature: {{ weatherdata.temperature }}° F </p>
+                    <div>
+                        <p class='float-left'>Weather Description : {{ weatherdata.description }}</p>
+                        <figure class="image is-50x50 img-fluid float-left">
+                            <img src="http://openweathermap.org/img/w/{{ weatherdata.icon }}.png" alt="Image">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="map">
+                    <!-- map will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+    var baseMapLayer = new ol.layer.Tile({
+      source: new ol.source.OSM()
+    });
+    var map = new ol.Map({
+      target: 'map',
+      layers: [ baseMapLayer],
+      view: new ol.View({
+              center: ol.proj.fromLonLat([{{ geodata.longitude}}, {{ geodata.latitude}}]),
+              zoom: 16 //Initial Zoom Level
+            })
+    });
+    //Adding a marker on the map
+    var marker = new ol.Feature({
+      geometry: new ol.geom.Point(
+        ol.proj.fromLonLat([{{ geodata.longitude}}, {{ geodata.latitude}}])
+      ),
+    });
+    var vectorSource = new ol.source.Vector({
+      features: [marker]
+    });
+    var markerVectorLayer = new ol.layer.Vector({
+      source: vectorSource,
+    });
+    map.addLayer(markerVectorLayer);
+
+    </script>
+
+  </body>
+
+</html>
