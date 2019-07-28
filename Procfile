@@ -1,1 +1,1 @@
-﻿web: gunicorn geodata.wsgi
+﻿web: gunicorn geodata.wsgi --log-file -
