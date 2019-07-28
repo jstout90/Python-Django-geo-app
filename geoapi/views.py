@@ -25,7 +25,7 @@ class GeoLocation(View):
                 'zip': r['zip'],
             }
 
-            weather_url = 'http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&units=imperial&appid=' + weather_key
+            weather_url = 'https://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&units=imperial&appid=' + weather_key
             geolat = '{:.2f}'.format(r['latitude'])
             geolon = '{:.2f}'.format(r['longitude'])
             w = requests.get(weather_url.format(str(geolat), str(geolon))).json()
