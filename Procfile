@@ -1,1 +1,1 @@
-﻿web: gunicorn src\geodata.wsgi --log-file -
+﻿web: gunicorn src\geodata\geodata.wsgi --log-file -
