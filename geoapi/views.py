@@ -1,6 +1,11 @@
 from django.views import View
 from django.shortcuts import render
 import requests
+import os
+
+
+access_key = os.environ.get('access_key')
+weather_key = os.environ.get('weather_key')
 
 
 class GeoLocation(View):
